@@ -16,7 +16,7 @@ import java.util.Map;
 public class DataModel implements CommandLineRunner {
 
 
-    private Map<Integer, Location> locationModel =  new HashMap<>();;
+    private Map<Integer, Location> locationModel =  new HashMap<>();
 
 
     private Map<Integer, BusRoute> routeModel;
@@ -24,10 +24,11 @@ public class DataModel implements CommandLineRunner {
 
 
     public void run(String... args) throws IOException {
-        this.path = args[0];
+        this.path = args.length > 0 ? args[0]:"input.txt";
         refresh ();
 
     }
+
     public void refresh () throws IOException {
         System.out.println ("Refreshing data model from " + path);
         FileParser fileParser = new FileParser();
