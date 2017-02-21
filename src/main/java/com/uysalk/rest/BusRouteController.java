@@ -19,10 +19,10 @@ import java.util.Map;
 public class BusRouteController {
 
     @Autowired
-    BusRouteService busRouteService;
+    private BusRouteService busRouteService;
 
     @Autowired
-    DataModel dataModel;
+    private DataModel dataModel;
 
     @RequestMapping(value="/direct", method= RequestMethod.GET)
     @ResponseBody
@@ -40,7 +40,7 @@ public class BusRouteController {
     }
 
     @RequestMapping(value="/refresh", method= RequestMethod.GET)
-    @CacheEvict(value = {"routes"},  allEntries = true)
+    @CacheEvict(value = {"indirectRoutes","directRoutes"},  allEntries = true)
     public String refresh () throws IOException {
         dataModel.refresh();
         return "OK";

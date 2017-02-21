@@ -52,13 +52,13 @@ public class FileParser {
      * Location --> Route1(index1),  Route2(index2)
      * Route --> [Location1, Location2]
      */
-    public void addToModel(String line) {
+    void addToModel(String line) {
         String[] routeInfo = line.split("\\s+");
         Integer busRouteID = Integer.parseInt(routeInfo[0]); // first element is route id
 
         for (int i = 1; i < routeInfo.length; i++) {
             Integer locationID = Integer.parseInt(routeInfo[i]);
-            Location location = null;
+            Location location ;
 
             if (locationModel.containsKey(locationID)) {
                 location = locationModel.get(locationID);

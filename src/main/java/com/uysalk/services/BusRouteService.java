@@ -22,7 +22,7 @@ public class BusRouteService {
     private DataModel dataModel ;
 
 
-    @Cacheable(value = "routes")
+    @Cacheable(value = "directRoutes")
     public List<Integer> directRoutes(Integer pickupLocationId, Integer dropoffLocationId ){
 
         System.out.printf("Calculating directRoutes for  %d , %d%n",pickupLocationId, dropoffLocationId);
@@ -30,15 +30,14 @@ public class BusRouteService {
         Location dropoffLocation        = dataModel.getLocationModel().get(dropoffLocationId);
         if (pickupLocation== null || dropoffLocation == null) return Collections.emptyList(); //  bus is not for us!
 
-        List<Integer> validRoutes =  pickupLocation.validRoutes (dropoffLocation);
+        return pickupLocation.validRoutes (dropoffLocation);
 
-        return validRoutes;
 
     }
 
 
 
-    @Cacheable(value = "routes")
+    @Cacheable(value = "indirectRoutes")
     public List<Integer> indirectRoutes(Integer pickupLocationId, Integer dropoffLocationId ) {
         System.out.printf("Calculating indirectRoutes for  %d , %d%n",pickupLocationId, dropoffLocationId);
 
