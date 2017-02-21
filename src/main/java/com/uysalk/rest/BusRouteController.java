@@ -2,7 +2,6 @@ package com.uysalk.rest;
 
 import com.uysalk.model.DataModel;
 import com.uysalk.services.BusRouteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +17,16 @@ import java.util.Map;
 @RequestMapping("/api")
 public class BusRouteController {
 
-    @Autowired
     private BusRouteService busRouteService;
 
-    @Autowired
     private DataModel dataModel;
+
+    //@Autowired
+    public BusRouteController(BusRouteService busRouteService, DataModel dataModel){
+        this.busRouteService = busRouteService;
+        this.dataModel = dataModel;
+    }
+
 
     @RequestMapping(value="/direct", method= RequestMethod.GET)
     @ResponseBody

@@ -2,7 +2,6 @@ package com.uysalk.services;
 
 import com.uysalk.model.DataModel;
 import com.uysalk.model.Location;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class BusRouteService {
 
-    @Autowired
     private DataModel dataModel ;
 
+    //We dont need  @Autowired
+    public BusRouteService (DataModel dataModel){
+        this.dataModel = dataModel;
+    }
 
     @Cacheable(value = "directRoutes")
     public List<Integer> directRoutes(Integer pickupLocationId, Integer dropoffLocationId ){
