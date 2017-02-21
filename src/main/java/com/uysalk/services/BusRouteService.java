@@ -3,6 +3,7 @@ package com.uysalk.services;
 import com.uysalk.model.DataModel;
 import com.uysalk.model.Location;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -21,10 +22,10 @@ public class BusRouteService {
     private DataModel dataModel ;
 
 
-
+    @Cacheable(value = "routes")
     public List<Integer> directRoutes(Integer pickupLocationId, Integer dropoffLocationId ){
 
-
+        System.out.printf("Calculating directRoutes for  %d , %d%n",pickupLocationId, dropoffLocationId);
         Location pickupLocation         = dataModel.getLocationModel().get(pickupLocationId);
         Location dropoffLocation        = dataModel.getLocationModel().get(dropoffLocationId);
         if (pickupLocation== null || dropoffLocation == null) return Collections.emptyList(); //  bus is not for us!
@@ -37,8 +38,10 @@ public class BusRouteService {
 
 
 
-
+    @Cacheable(value = "routes")
     public List<Integer> indirectRoutes(Integer pickupLocationId, Integer dropoffLocationId ) {
+        System.out.printf("Calculating indirectRoutes for  %d , %d%n",pickupLocationId, dropoffLocationId);
+
         Location pickupLocation         = dataModel.getLocationModel().get(pickupLocationId);
         Location dropoffLocation        = dataModel.getLocationModel().get(dropoffLocationId);
         if (pickupLocation== null || dropoffLocation == null) return Collections.emptyList(); //  bus is not for us!

@@ -3,6 +3,7 @@ package com.uysalk.rest;
 import com.uysalk.model.DataModel;
 import com.uysalk.services.BusRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -39,6 +40,7 @@ public class BusRouteController {
     }
 
     @RequestMapping(value="/refresh", method= RequestMethod.GET)
+    @CacheEvict(value = {"routes"},  allEntries = true)
     public String refresh () throws IOException {
         dataModel.refresh();
         return "OK";
